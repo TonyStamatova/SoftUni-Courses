@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "distanceInLabyrinth", "distanceInLabyrinth\distanceInLabyrinth.csproj", "{679A9786-1841-4D5A-8CA6-2C384CCEB172}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "longestSubsequence", "longestSubsequence\longestSubsequence.csproj", "{699BEC7E-C67A-47C6-821F-7162BC953D6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{679A9786-1841-4D5A-8CA6-2C384CCEB172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{679A9786-1841-4D5A-8CA6-2C384CCEB172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{679A9786-1841-4D5A-8CA6-2C384CCEB172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{679A9786-1841-4D5A-8CA6-2C384CCEB172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{699BEC7E-C67A-47C6-821F-7162BC953D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{699BEC7E-C67A-47C6-821F-7162BC953D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{699BEC7E-C67A-47C6-821F-7162BC953D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{699BEC7E-C67A-47C6-821F-7162BC953D6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03A91F96-2F78-44E8-B859-27036AFDE27E}
+	EndGlobalSection
+EndGlobal
