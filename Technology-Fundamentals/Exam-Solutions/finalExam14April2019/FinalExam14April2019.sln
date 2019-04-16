@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.TheIsleOfManTTRace", "01.TheIsleOfManTTRace\01.TheIsleOfManTTRace.csproj", "{FEF145E1-9601-405F-9506-6143BE38CC7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.PracticeSessions", "02.PracticeSessions\02.PracticeSessions.csproj", "{76C5CD7E-2A50-4A95-AADA-E1BCE7D577F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEF145E1-9601-405F-9506-6143BE38CC7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEF145E1-9601-405F-9506-6143BE38CC7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEF145E1-9601-405F-9506-6143BE38CC7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEF145E1-9601-405F-9506-6143BE38CC7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76C5CD7E-2A50-4A95-AADA-E1BCE7D577F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76C5CD7E-2A50-4A95-AADA-E1BCE7D577F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76C5CD7E-2A50-4A95-AADA-E1BCE7D577F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76C5CD7E-2A50-4A95-AADA-E1BCE7D577F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A428DA53-35B9-4B5E-9269-F4048E227495}
+	EndGlobalSection
+EndGlobal
