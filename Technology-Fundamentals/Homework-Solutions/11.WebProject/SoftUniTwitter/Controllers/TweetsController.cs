@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SoftUniTwitter.Data;
 using SoftUniTwitter.Models;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SoftUniTwitter.Controllers
 {
+    [Authorize]
     public class TweetsController : Controller
     {
         ApplicationDbContext db;
@@ -19,11 +21,9 @@ namespace SoftUniTwitter.Controllers
         }
 
         public IActionResult Create()
-        {            
+        {
             return View();
         }
-
-        // TODO: Logged user?
 
         public IActionResult SaveToDatabase(string text)
         {
@@ -38,6 +38,22 @@ namespace SoftUniTwitter.Controllers
             db.SaveChanges();
 
             return Redirect("/");
+        }
+
+        public IActionResult ByHashtag(string id)
+        {
+            var model = db.Tweets
+                .Where(x => x.Text.Contains("#" + id))
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(x =>
+                    new TweetViewModel
+                        {
+                            CreatedOn = x.CreatedOn,
+                            Text = x.Text,
+                            Username = x.User.UserName
+                        })
+                .ToList();
+            return View(model);
         }
     }
 }
