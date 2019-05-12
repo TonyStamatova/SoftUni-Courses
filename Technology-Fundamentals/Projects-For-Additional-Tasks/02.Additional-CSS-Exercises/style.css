@@ -1,0 +1,30 @@
+#green{
+   background: green;
+}
+
+#blue{
+    background: blue;
+}
+
+#red{
+    background: red;
+}
+
+#purple{
+    background: purple;
+}
+
+#orange{
+    background: orange;
+}
+
+div{
+    display: inline-block;
+    padding: 20px;
+    border: 3px solid yellow;
+    margin-inline-end: 20px;
+    font-family: 'Stylish', cursive;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+}
