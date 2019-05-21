@@ -1,0 +1,11 @@
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\bin\Debug\netcoreapp2.1\06.Jagged-ArrayModification.deps.json
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\bin\Debug\netcoreapp2.1\06.Jagged-ArrayModification.runtimeconfig.json
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\bin\Debug\netcoreapp2.1\06.Jagged-ArrayModification.runtimeconfig.dev.json
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\bin\Debug\netcoreapp2.1\06.Jagged-ArrayModification.dll
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\bin\Debug\netcoreapp2.1\06.Jagged-ArrayModification.pdb
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\obj\Debug\netcoreapp2.1\06.Jagged-ArrayModification.csprojAssemblyReference.cache
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\obj\Debug\netcoreapp2.1\06.Jagged-ArrayModification.csproj.CoreCompileInputs.cache
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\obj\Debug\netcoreapp2.1\06.Jagged-ArrayModification.AssemblyInfoInputs.cache
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\obj\Debug\netcoreapp2.1\06.Jagged-ArrayModification.AssemblyInfo.cs
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\obj\Debug\netcoreapp2.1\06.Jagged-ArrayModification.dll
+H:\TONI\repos\02.MultidimentionalArrays\06.Jagged-ArrayModification\obj\Debug\netcoreapp2.1\06.Jagged-ArrayModification.pdb
