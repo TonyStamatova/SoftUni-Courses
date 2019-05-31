@@ -8,7 +8,7 @@
         public static void Main()
         {
             string fileDir = "files";
-            string fileName = "input.txt";
+            string fileName = "Input.txt";
             string filePath = Path.Combine(fileDir, fileName);
 
             using (var reader = new StreamReader(filePath))
