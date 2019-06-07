@@ -1,18 +1,15 @@
 ﻿namespace _01.ActionPrint
 {
     using System;
-    using System.Linq;
 
     public class ActionPrint
     {
         public static void Main()
         {
-            Action<string> print = x => Console.WriteLine(x);
+            Action<string[]> print = x => Console.WriteLine(string.Join(Environment.NewLine, x));
 
-            Console.ReadLine()
-                .Split()
-                .ToList()
-                .ForEach(print);
+            print(Console.ReadLine()
+                .Split());         
         }
     }
 }
