@@ -11,8 +11,16 @@
             this.Pressure = pressure;
         }
 
-        public int Year { get; set; }
+        public int Year
+        {
+            get => this.year;
+            set => this.year = value;
+        }
 
-        public double Pressure { get; set; }
+        public double Pressure
+        {
+            get => this.pressure;
+            set => this.pressure = value;
+        }
     }
 }

@@ -15,11 +15,13 @@
 
         public Car()
         {
+			this.Engine = new Engine();
             this.FuelConsumption = 10;
             this.FuelQuantity = 200;
             this.Make = "VW";
             this.Model = "Golf";
             this.Year = 2025;
+			this.Tires = new Tire[4];
         }
 
         public Car(
@@ -59,19 +61,47 @@
             this.Tires = tires;
         }
 
-        public Engine Engine { get; set; }
+        public Engine Engine
+        {
+            get => this.engine;
+            set => this.engine = value;
+        }
 
-        public double FuelConsumption { get; set; }
+        public double FuelConsumption
+        {
+            get => this.fuelConsumption;
+            set => this.fuelConsumption = value;
+        }
 
-        public double FuelQuantity { get; set; }
+        public double FuelQuantity
+        {
+            get => this.fuelQuantity;
+            set => this.fuelQuantity = value;
+        }
 
-        public string Make { get; set; }
+        public string Make
+        {
+            get => this.make;
+            set => this.make = value;
+        }
 
-        public string Model { get; set; }
+        public string Model
+        {
+            get => this.model;
+            set => this.model = value;
+        }
 
-        public Tire[] Tires { get; set; }
+        public Tire[] Tires
+        {
+            get => this.tires;
+            set => this.tires = value;
+        }
 
-        public int Year { get; set; }   
+        public int Year
+        {
+            get => this.year;
+            set => this.year = value;
+        }   
         
         public void Drive(double distance)
         {

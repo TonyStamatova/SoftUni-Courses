@@ -11,9 +11,16 @@
             this.CubicCapacity = cubicCapacity;
         }
 
-        public int HorsePower { get; set; }
+        public int HorsePower
+        {
+            get => this.horsePower;
+            set => this.horsePower = value;
+        }
 
-        public double CubicCapacity { get; set; }
-
+        public double CubicCapacity
+        {
+            get => this.cubicCapacity;
+            set => this.cubicCapacity = value;
+        }
     }
 }
