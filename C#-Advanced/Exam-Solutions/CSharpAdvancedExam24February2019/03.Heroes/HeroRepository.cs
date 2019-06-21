@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Heroes
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     public class HeroRepository
     {
         private Dictionary<string, Hero> heroes;
