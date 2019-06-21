@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Heroes
 {
+    using System;
+
     public class Hero
     {
-        public string Name { get; set; }
-
-        public int Level { get; set; }
-
-        public Item Item { get; set; }
-
         public Hero(string name, int level, Item item)
         {
             this.Name = name;
             this.Level = level;
             this.Item = item;
         }
+
+        public string Name { get; set; }
+
+        public int Level { get; set; }
+
+        public Item Item { get; set; }
 
         public override string ToString()
         {
