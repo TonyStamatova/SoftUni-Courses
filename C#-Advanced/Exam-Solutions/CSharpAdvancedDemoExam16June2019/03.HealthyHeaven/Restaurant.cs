@@ -7,51 +7,50 @@
     public class Restaurant
     {
         private string name;
-        private Dictionary<string, Salad> data;
+        private List<Salad> data;
 
         public Restaurant(string name)
         {
             this.Name = name;
 
-            this.Data = new Dictionary<string, Salad>();
+            this.data = new List<Salad>();
         }
 
-        public string Name { get => name; set => name = value; }
-
-        private Dictionary<string, Salad> Data { get => data; set => data = value; }
+        public string Name { get => this.name; set => this.name = value; }
 
         public void Add(Salad salad)
         {
-            if (!this.Data.ContainsKey(salad.Name))
-            {
-                this.Data.Add(salad.Name, salad);
-            }
+            this.data.Add(salad);
         }
 
         public bool Buy(string name)
         {
-            return this.Data.Remove(name);
+            return this.data.Remove(
+                data
+                .Where(s => s.Name == name)
+                .FirstOrDefault());
         }
 
         public Salad GetHealthiestSalad()
         {
-            return this.Data
-                .OrderBy(kvp => kvp.Value.GetTotalCalories())
-                .Select(kvp => kvp.Value)
-                .FirstOrDefault();
+            return this.data
+                .OrderByDescending(s => s.GetTotalCalories())
+                .LastOrDefault();
         }
 
         public string GenerateMenu()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"{this.Name} have {this.Data.Count} salads:");
+            builder.AppendLine($"{this.Name} have {this.data.Count} salads:");
 
-            foreach (var (saladName, salad) in this.Data)
+            foreach (var salad in this.data)
             {
                 builder.AppendLine(salad.ToString());
             }
 
-            return builder.ToString().TrimEnd();
+            return builder
+                .ToString()
+                .TrimEnd();
         }
     }
 }

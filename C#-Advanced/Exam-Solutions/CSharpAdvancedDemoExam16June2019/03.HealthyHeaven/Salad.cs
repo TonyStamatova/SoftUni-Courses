@@ -7,38 +7,38 @@
     public class Salad
     {
         private string name;
-        private List<Vegetable> products;
+        private HashSet<Vegetable> products;
 
         public Salad(string name)
         {
             this.Name = name;
 
-            this.Products = new List<Vegetable>();
+            this.products = new HashSet<Vegetable>();
         }
 
-        public string Name { get => name; set => name = value; }
-
-        private List<Vegetable> Products { get => products; set => products = value; }
+        public string Name { get => this.name; set => this.name = value; }
 
         public int GetTotalCalories()
         {
-            return this.Products.Select(p => p.Calories).Sum();
+            return this.products
+                .Select(p => p.Calories)
+                .Sum();
         }
 
         public int GetProductCount()
         {
-            return this.Products.Count();
+            return this.products.Count();
         }
 
         public void Add(Vegetable product)
         {
-            this.Products.Add(product);
+            this.products.Add(product);
         }
 
         public override string ToString()
         {
             return $"* Salad {this.Name} is {GetTotalCalories()} calories and have {GetProductCount()} products:"
-                + Environment.NewLine + string.Join(Environment.NewLine, this.Products);
+                + Environment.NewLine + string.Join(Environment.NewLine, this.products);
         }
     }
 }
