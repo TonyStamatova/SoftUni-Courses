@@ -40,10 +40,10 @@
                         switch (vehicle)
                         {
                             case "Car":
-                                car.Refuel(distance);
+                                car.Refuel(liters);
                                 break;
                             case "Truck":
-                                truck.Refuel(distance);
+                                truck.Refuel(liters);
                                 break;
                         }
                         break;
