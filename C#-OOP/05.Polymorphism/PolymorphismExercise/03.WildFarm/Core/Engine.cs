@@ -1,15 +1,14 @@
 ﻿namespace _03.WildFarm.Core
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     using _03.WildFarm.Contracts;
-    using _03.WildFarm.Models.Animals;
     using _03.WildFarm.Models.Animals.Birds;
     using _03.WildFarm.Models.Animals.Mammals;
     using _03.WildFarm.Models.Animals.Mammals.Feline;
     using _03.WildFarm.Models.Food;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public static class Engine
     {
@@ -17,12 +16,28 @@
 
         public static void Run()
         {
+            ProcessEachAnimal();
+            PrintAnimalsInfo();
+        }
+
+        private static void PrintAnimalsInfo()
+        {
+            foreach (var animal in animals)
+            {
+                Console.WriteLine(animal);
+            }
+        }
+
+        private static void ProcessEachAnimal()
+        {
             string input = string.Empty;
 
             while ((input = Console.ReadLine()) != "End")
             {
                 IAnimal animal = CreateNewAnimal(input.Split());
+
                 animals.Add(animal);
+
                 Console.WriteLine(animal.AskForFood());
 
                 IFood food = CreateNewFood(Console.ReadLine().Split());
@@ -35,11 +50,6 @@
                 {
                     Console.WriteLine(ioe.Message);
                 }
-            }
-
-            foreach (var animal in animals)
-            {
-                Console.WriteLine(animal);
             }
         }
 

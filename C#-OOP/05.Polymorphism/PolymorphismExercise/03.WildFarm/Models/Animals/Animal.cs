@@ -1,10 +1,9 @@
 ﻿namespace _03.WildFarm.Models.Animals
 {
-    using _03.WildFarm.Contracts;
-    using _03.WildFarm.Models.Food;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
+
+    using _03.WildFarm.Contracts;    
 
     public abstract class Animal : IAnimal
     {
@@ -22,7 +21,7 @@
 
         protected abstract double WeightIncreaseByPiece { get; set; }
 
-        protected abstract string[] AppropriateFoods { get; set; }
+        protected abstract Type[] AppropriateFoods { get; set; }
 
         public abstract string AskForFood();
 
@@ -40,11 +39,11 @@
 
         protected void ValidateFood(IFood food)
         {
-            string foodType = food.GetType().Name;
+            Type foodType = food.GetType();
 
             if (!this.AppropriateFoods.Any(f => f == foodType))
             {
-                throw new InvalidOperationException($"{this.GetType().Name} does not eat {foodType}!");
+                throw new InvalidOperationException($"{this.GetType().Name} does not eat {foodType.Name}!");
             }
         }
         
