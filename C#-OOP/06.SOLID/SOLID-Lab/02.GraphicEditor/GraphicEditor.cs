@@ -6,7 +6,7 @@
     {
         public void DrawShape(IShape shape)
         {
-            Printer consolePrinter = new Printer();
+            IPrinter consolePrinter = new Printer();
 
             consolePrinter.Print($"I'm {shape.GetType().Name}");
         }
