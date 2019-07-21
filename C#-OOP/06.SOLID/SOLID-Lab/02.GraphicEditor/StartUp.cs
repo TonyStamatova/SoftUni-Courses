@@ -2,7 +2,7 @@
 
 namespace P02.Graphic_Editor
 {
-    class StartUp
+    public class StartUp
     {
         static void Main()
         {
