@@ -1,20 +1,20 @@
-﻿using NUnit.Framework;
-
-namespace Tests
+﻿namespace Tests
 {
+    using NUnit.Framework;
+
     [TestFixture]
     public class AxeTests
     {
         private static Dummy dummy;
 
         [SetUp]
-        public static void CreateAxeAndDummy()
+        public void CreateAxeAndDummy()
         {
             dummy = new Dummy(10, 10);
         }
 
         [Test]
-        public static void WeaponLoosesDurabilityAfterAttack()
+        public void WeaponLoosesDurabilityAfterAttack()
         {
             Axe axe = new Axe(10, 10);
 
@@ -24,7 +24,7 @@ namespace Tests
         }
 
         [Test]
-        public static void AttackWithBrokenAxeShouldThrow()
+        public void AttackWithBrokenAxeShouldThrow()
         {
             Axe axe = new Axe(10, 0);
 
