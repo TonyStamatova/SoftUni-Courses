@@ -5,43 +5,52 @@
     [TestFixture]
     public class DummyTests
     {
+        private const int INITIAL_HEALTH = 10;
+        private const int INITIAL_XP = 10;
+
+        private Dummy dummy;
+
+        [SetUp]
+        public void CreateAxeAndDummy()
+        {
+            this.dummy = new Dummy(INITIAL_HEALTH, INITIAL_XP);
+        }
+
         [Test]
         public void LoseHealthWhenAttacked()
         {
-            Dummy dummy = new Dummy(10, 10);
+            this.dummy.TakeAttack(3);
 
-            dummy.TakeAttack(3);
-
-            Assert.That(dummy.Health, Is.EqualTo(7));
+            Assert.That(this.dummy.Health, Is.EqualTo(INITIAL_HEALTH - 3));
         }
 
         [Test]
         public void DeadDummyThrowsIfAttacked()
         {
-            Dummy dummy = new Dummy(0, 10);            
+            //Takes all health from Setup Dummy
+            this.dummy.TakeAttack(INITIAL_HEALTH);             
 
             Assert.That(
-                () => dummy.TakeAttack(3), 
+                () => this.dummy.TakeAttack(3), 
                 Throws.Exception.With.Message.EqualTo("Dummy is dead."));
         }
         
         [Test]
         public void DeadDummyGivesXP()
         {
-            Dummy dummy = new Dummy(0, 10);
+            //Takes all health from Setup Dummy
+            this.dummy.TakeAttack(INITIAL_HEALTH);
 
-            int experience = dummy.GiveExperience();
+            int experience = this.dummy.GiveExperience();
 
-            Assert.That(experience, Is.EqualTo(10));
+            Assert.That(experience, Is.EqualTo(INITIAL_XP));
         }
 
         [Test]
         public void AliveDummyThrowsInsteadOfGivingXP()
         {
-            Dummy dummy = new Dummy(10, 10);
-            
             Assert.That(
-                () => dummy.GiveExperience(),
+                () => this.dummy.GiveExperience(),
                 Throws.Exception.With.Message.EqualTo("Target is not dead."));
         }
     }
