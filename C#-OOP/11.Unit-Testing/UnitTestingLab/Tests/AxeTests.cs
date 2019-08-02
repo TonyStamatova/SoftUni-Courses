@@ -9,7 +9,7 @@
         private Axe axe;
 
         [SetUp]
-        public void CreateAxeAndDummy()
+        public void CreateDummy()
         {
             this.dummy = new Dummy(10, 10);
         }

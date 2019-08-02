@@ -11,7 +11,7 @@
         private Dummy dummy;
 
         [SetUp]
-        public void CreateAxeAndDummy()
+        public void Create()
         {
             this.dummy = new Dummy(INITIAL_HEALTH, INITIAL_XP);
         }
