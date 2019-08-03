@@ -1,7 +1,8 @@
 ﻿namespace Tests
 {
-    using Contracts;
     using NUnit.Framework;
+
+    using Contracts;
     using FakeModels;
 
     [TestFixture]
