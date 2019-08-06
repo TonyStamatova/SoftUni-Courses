@@ -1,8 +1,10 @@
-using CarManager;
-using NUnit.Framework;
 using System;
 using System.Linq;
 using System.Reflection;
+
+using NUnit.Framework;
+
+using CarManager;
 
 namespace Tests
 {
@@ -72,7 +74,6 @@ namespace Tests
                     this.model,
                     this.fuelConsumption,
                     this.fuelCapacity));
-                //"Make cannot be null or empty!");
         }
 
         [Test]
@@ -86,7 +87,6 @@ namespace Tests
                     this.model,
                     this.fuelConsumption,
                     this.fuelCapacity));
-                //"Make cannot be null or empty!");
         }        
 
         [Test]
@@ -100,7 +100,6 @@ namespace Tests
                     emptyModelString,
                     this.fuelConsumption,
                     this.fuelCapacity));
-                //"Model cannot be null or empty!");
         }
 
         [Test]
@@ -114,7 +113,6 @@ namespace Tests
                     nullModelString,
                     this.fuelConsumption,
                     this.fuelCapacity));
-                //"Model cannot be null or empty!");
         }
 
         [Test]
@@ -128,7 +126,6 @@ namespace Tests
                     this.model,
                     zeroFuelConsumtion,
                     this.fuelCapacity));
-            //"Fuel consumption cannot be zero or negative!");
         }
 
         [Test]
@@ -142,7 +139,6 @@ namespace Tests
                     this.model,
                     negativeFuelConsumtion,
                     this.fuelCapacity));
-            //"Fuel consumption cannot be zero or negative!");
         }
 
         [Test]
@@ -155,12 +151,7 @@ namespace Tests
                 .FirstOrDefault(p => p.Name == "FuelAmount");
 
             Assert.Throws<TargetInvocationException>(
-                //.That(
                 () => fuelAmount.SetValue(car, newgativeFuelAmount));
-                //Throws.TargetInvocationException.With.InnerException
-                //.TypeOf(typeof(ArgumentException))
-                //.With.InnerException.Message
-                //.EqualTo("Fuel amount cannot be negative!"));
         }
 
         [Test]
@@ -173,8 +164,7 @@ namespace Tests
                     this.make,
                     this.model,
                     this.fuelConsumption,
-                    negativeFuelCapacity),
-                "Fuel capacity cannot be zero or negative!");
+                    negativeFuelCapacity));
         }
 
         [Test]
@@ -187,8 +177,7 @@ namespace Tests
                     this.make,
                     this.model,
                     this.fuelConsumption,
-                    zeroFuelCapacity),
-                "Fuel capacity cannot be zero or negative!");
+                    zeroFuelCapacity));
         }
 
         [Test]
@@ -197,8 +186,7 @@ namespace Tests
             double negativeFuelAmount = -1.2;
         
             Assert.Throws<ArgumentException>(
-                () => this.car.Refuel(negativeFuelAmount),
-                "Fuel amount cannot be zero or negative!");
+                () => this.car.Refuel(negativeFuelAmount));
         }
 
         [Test]
@@ -207,8 +195,7 @@ namespace Tests
             double zeroFuelAmount = 0;
 
             Assert.Throws<ArgumentException>(
-                () => this.car.Refuel(zeroFuelAmount),
-                "Fuel amount cannot be zero or negative!");
+                () => this.car.Refuel(zeroFuelAmount));
         }
 
         [Test]
@@ -237,8 +224,7 @@ namespace Tests
             double distance = 1.0;
 
             Assert.Throws<InvalidOperationException>(
-                () => this.car.Drive(distance),
-                "You don't have enough fuel to drive!");
+                () => this.car.Drive(distance));
         }
 
         [Test]
