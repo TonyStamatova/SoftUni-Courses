@@ -51,12 +51,6 @@ public class GraphConnectedComponents
 
         List<int> connections = graph[node];
 
-        if (connections.All(c => visited[c]))
-        {
-            Console.Write($" {node}");
-            return;
-        }
-
         foreach (var connection in connections.Where(c => !visited[c]))
         {
             PerformDFSForCurrentNode(connection);
