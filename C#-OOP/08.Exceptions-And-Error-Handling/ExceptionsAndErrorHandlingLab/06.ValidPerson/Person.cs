@@ -1,8 +1,6 @@
 ﻿namespace _06.ValidPerson
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public class Person
     {
@@ -20,7 +18,7 @@
         public string FirstName
         {
             get => this.firstName;
-            set
+            private set
             {
                 ValidateName(value);
                 this.firstName = value;
@@ -30,7 +28,7 @@
         public string LastName
         {
             get => this.lastName;
-            set
+            private set
             {
                 ValidateName(value);
                 this.lastName = value;
