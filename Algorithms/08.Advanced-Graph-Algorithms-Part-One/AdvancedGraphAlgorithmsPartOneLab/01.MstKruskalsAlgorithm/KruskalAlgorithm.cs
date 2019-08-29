@@ -1,3 +1,5 @@
+namespace Kurskal
+{
     using System.Collections.Generic;
     using System.Linq;
 
@@ -35,7 +37,7 @@
         {
             int parentNode = parent[node];
 
-            if (parentNode == -1)
+            if (parentNode == node)
             {
                 return node;
             }
@@ -47,7 +49,8 @@
         {
             for (int i = 0; i < parentsInfo.Length; i++)
             {
-                parentsInfo[i] = -1;
+                parentsInfo[i] = i;
             }
         }
     }
+}

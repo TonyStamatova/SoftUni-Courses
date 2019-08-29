@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-public class KruskalMain
+﻿namespace Kurskal
 {
-    public static void Main()
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class KruskalMain
     {
-        int numberOfVertices = 9;
-        var graphEdges = new List<Edge>
+        public static void Main()
+        {
+            int numberOfVertices = 9;
+            var graphEdges = new List<Edge>
             {
                 new Edge(0, 3, 9),
                 new Edge(0, 5, 4),
@@ -22,14 +24,15 @@ public class KruskalMain
                 new Edge(6, 8, 7)
             };
 
-        var minimumSpanningForest = KruskalAlgorithm.Kruskal(numberOfVertices, graphEdges);
+            var minimumSpanningForest = KruskalAlgorithm.Kruskal(numberOfVertices, graphEdges);
 
-        Console.WriteLine("Minimum spanning forest weight: " +
-                        minimumSpanningForest.Sum(e => e.Weight));
+            Console.WriteLine("Minimum spanning forest weight: " +
+                            minimumSpanningForest.Sum(e => e.Weight));
 
-        foreach (var edge in minimumSpanningForest)
-        {
-            Console.WriteLine(edge);
+            foreach (var edge in minimumSpanningForest)
+            {
+                Console.WriteLine(edge);
+            }
         }
     }
 }
