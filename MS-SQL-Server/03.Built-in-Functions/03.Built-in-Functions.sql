@@ -114,3 +114,48 @@ SUBSTRING (Email, CHARINDEX('@', Email) + 1, LEN(Email))
    WHERE IpAddress LIKE '___.1%.%.___'
 ORDER BY Username
 
+-- Problem 17
+   SELECT [Name] AS [Game],
+CASE WHEN DATEPART(HOUR, [Start]) BETWEEN 0 AND 11 THEN 'Morning'
+     WHEN DATEPART(HOUR, [Start]) BETWEEN 12 AND 17 THEN 'Afternoon'
+     ELSE 'Evening'
+   END AS [Part of the Day],
+CASE WHEN [Duration] <= 3 THEN 'Extra Short'
+     WHEN [Duration] BETWEEN 4 AND 6 THEN 'Short'
+     WHEN [Duration] > 6 THEN 'Long'
+     ELSE 'Extra Long'
+   END AS [Duration]
+     FROM Games
+ ORDER BY [Game], [Duration], [Part of the Day]
+
+-----------------------------------------------------
+
+USE Orders
+
+-- Problem 18
+ SELECT ProductName, OrderDate, 
+DATEADD (DAY, 3, OrderDate) AS [Pay Due],
+DATEADD (MONTH, 1, OrderDate) AS [Deliver Due]
+   FROM Orders
+
+-----------------------------------------------------
+
+CREATE DATABASE Demo
+
+USE Demo
+
+-- Problem 19
+CREATE TABLE People (
+          Id INT PRIMARY KEY IDENTITY,
+      [Name] VARCHAR(30) NOT NULL,
+   Birthdate DATETIME NOT NULL);
+
+ INSERT INTO People([Name], Birthdate)
+      VALUES ('VICTOR', '1992-01-17')
+
+      SELECT [Name],
+    DATEDIFF (YEAR, Birthdate, GETDATE()) AS [Age in Years],
+    DATEDIFF (MONTH, Birthdate, GETDATE()) AS [Age in Months],
+    DATEDIFF (DAY, Birthdate, GETDATE()) AS	[Age in Days],
+    DATEDIFF (MINUTE, Birthdate, GETDATE()) AS [Age in Minutes]
+        FROM People
