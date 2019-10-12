@@ -70,7 +70,40 @@ BEGIN
 END
 
 -- Problem 08
+CREATE PROC usp_DeleteEmployeesFromDepartment(@departmentId INT) 
+AS
+BEGIN
+  DELETE 
+  FROM EmployeesProjects
+  WHERE EmployeeID IN(
+    SELECT EmployeeID 
+ 	FROM Employees AS e	 
+	WHERE e.DepartmentID = @departmentId)
 
+  UPDATE Employees
+  SET ManagerID = NULL
+  WHERE ManagerID IN(
+	SELECT EmployeeID 
+ 	FROM Employees AS e	 
+	WHERE e.DepartmentID = @departmentId)
+
+  ALTER TABLE Departments
+  ALTER COLUMN ManagerID INT
+
+  UPDATE Departments
+  SET ManagerID = NULL
+  WHERE DepartmentID = @departmentId
+
+  DELETE FROM Employees
+  WHERE DepartmentID = @departmentId
+
+  DELETE FROM Departments
+  WHERE DepartmentID = @departmentId
+
+  SELECT COUNT(*)
+  FROM Employees
+  WHERE DepartmentID = @departmentId
+END
 
 -------------------------------------------
 
@@ -129,10 +162,130 @@ RETURN (
   FROM (
     SELECT ug.Cash, 
       ROW_NUMBER() OVER(
-      PARTITION BY g.[Name]
-      ORDER BY ug.Cash DESC) AS [row]
+        PARTITION BY g.[Name]
+        ORDER BY ug.Cash DESC) AS [row]
     FROM Games AS g
     JOIN UsersGames AS ug
     ON g.Id = ug.GameId
     WHERE g.[Name] = @name) AS temp
   WHERE temp.[row] % 2 <> 0)
+
+--------------------------------------------------
+
+USE Bank
+
+-- Problem 14
+CREATE TABLE Logs(
+  LogId INT PRIMARY KEY IDENTITY(1,1),
+  AccountId INT FOREIGN KEY REFERENCES Accounts(Id) NOT NULL, 
+  OldSum MONEY, 
+  NewSum MONEY)
+
+CREATE TRIGGER tr_AccountsUpdate ON Accounts INSTEAD OF UPDATE
+AS
+  BEGIN
+	INSERT INTO Logs(AccountId, OldSum, NewSum)
+	SELECT inserted.Id, a.Balance, inserted.Balance
+	FROM inserted
+	LEFT JOIN Accounts AS a
+	ON inserted.Id = a.Id
+
+	UPDATE a
+	SET a.Balance = i.Balance
+	FROM Accounts AS a 
+	RIGHT JOIN inserted AS i
+	ON i.Id = a.Id
+  END
+
+-- Problem 15
+CREATE TABLE NotificationEmails(
+  Id INT PRIMARY KEY IDENTITY(1,1), 
+  Recipient INT FOREIGN KEY REFERENCES Accounts(Id) NOT NULL, 
+  [Subject] NVARCHAR(MAX) NOT NULL, 
+  Body NVARCHAR(MAX) NOT NULL)
+
+CREATE TRIGGER tr_AccountsUpdateEmail ON Accounts INSTEAD OF UPDATE
+AS
+  BEGIN
+	INSERT INTO NotificationEmails(Recipient, [Subject], Body)
+	SELECT inserted.Id, 
+	  CONCAT('Balance change for account: ', 
+	    inserted.Id),
+	  CONCAT('On ', 
+	    CONVERT(VARCHAR, GETDATE(), 100), 
+	    ' your balance was changed from ', 
+	    a.Balance, 
+	    ' to ', 
+	    inserted.Balance, 
+	    '.')
+	FROM inserted
+	LEFT JOIN Accounts AS a
+	ON inserted.Id = a.Id
+
+	UPDATE a
+	SET a.Balance = i.Balance
+	FROM Accounts AS a
+	RIGHT JOIN inserted AS i
+	ON i.Id = a.Id
+  END
+
+-- Problem 16
+CREATE PROC usp_DepositMoney(@accountId INT, @moneyAmount MONEY)
+AS
+  BEGIN TRANSACTION
+    IF (@moneyAmount > 0)
+      BEGIN
+        UPDATE a 
+	    SET a.Balance = a.Balance + @moneyAmount
+		FROM Accounts AS a
+        WHERE a.Id = @accountId 
+      END    
+COMMIT
+
+-- Problem 17
+CREATE PROC usp_WithdrawMoney(@accountId INT, @moneyAmount MONEY)
+AS
+  BEGIN TRANSACTION
+    IF (@moneyAmount > 0)
+      BEGIN
+        UPDATE a
+	    SET a.Balance = a.Balance - @moneyAmount
+		FROM Accounts AS a 
+        WHERE a.Id = @accountId 
+      END    
+COMMIT
+
+-- Problem 18
+CREATE PROC usp_TransferMoney(@SenderId INT, @receiverId INT, @moneyAmount MONEY)
+AS
+  BEGIN TRANSACTION
+    IF (@moneyAmount > 0)
+      BEGIN
+        EXEC dbo.usp_WithdrawMoney @SenderId, @moneyAmount
+		EXEC dbo.usp_DepositMoney @receiverId, @moneyAmount
+      END    
+COMMIT
+
+------------------------------------------------------------------
+
+USE Diablo
+
+-- Problem 19
+CREATE TRIGGER tr_UsertItemsToUserGames ON UserGameItems FOR UPDATE
+AS
+  IF (EXISTS(
+        SELECT * 
+		FROM inserted AS ins
+		JOIN Items AS it
+		ON ins.ItemId = it.Id
+		JOIN UsersGames AS ug
+		ON ins.UserGameId = ug.Id
+        WHERE it.MinLevel > ug.Level))
+  BEGIN
+    ROLLBACK
+    RETURN
+  END
+
+  select * from items
+  select * from usergameitems
+  SELECT * FROM UsersGames
