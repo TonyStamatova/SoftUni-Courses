@@ -271,21 +271,53 @@ COMMIT
 USE Diablo
 
 -- Problem 19
-CREATE TRIGGER tr_UsertItemsToUserGames ON UserGameItems FOR UPDATE
-AS
-  IF (EXISTS(
-        SELECT * 
-		FROM inserted AS ins
-		JOIN Items AS it
-		ON ins.ItemId = it.Id
-		JOIN UsersGames AS ug
-		ON ins.UserGameId = ug.Id
-        WHERE it.MinLevel > ug.Level))
-  BEGIN
-    ROLLBACK
-    RETURN
-  END
+--CREATE TRIGGER tr_UsertItemsToUserGames ON UserGameItems FOR UPDATE
+--AS
+--  IF (EXISTS(
+--        SELECT * 
+--		FROM inserted AS ins
+--		JOIN Items AS it
+--		ON ins.ItemId = it.Id
+--		JOIN UsersGames AS ug
+--		ON ins.UserGameId = ug.Id
+--        WHERE it.MinLevel > ug.Level))
+--  BEGIN
+--    ROLLBACK
+--    RETURN
+--  END
 
-  select * from items
-  select * from usergameitems
-  SELECT * FROM UsersGames
+--UPDATE ug
+--SET ug.Cash += 50000 
+--FROM UsersGames AS ug
+--JOIN Games AS g
+--ON g.Id = ug.GameId
+--JOIN Users AS u
+--ON u.Id = ug.UserId
+--WHERE g.Name = 'Bali' 
+--AND u.Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos')
+
+
+--  select * from items
+--  select * from usergameitems
+--  SELECT * FROM UsersGames
+--  select * from games
+--  where Games.Name = 'Bali'
+--  SELECT * FROM USERS
+
+SELECT u.Username
+FROM Users AS u
+JOIN (
+  SELECT *
+  FROM Items AS i
+  FULL JOIN UsersGames AS ug
+  ON ug.GameId IN (
+       SELECT g.Id, g.[Name]
+       FROM Games AS g
+       WHERE g.[Name] = 'Bali')
+  AND ug.UserId IN (
+       SELECT u.Id
+       FROM Users AS u
+       WHERE u.Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos'))
+  WHERE i.Id BETWEEN 251 AND 299
+  OR i.Id BETWEEN 501 AND 539) AS temp
+ON u.Id = temp.UserId
