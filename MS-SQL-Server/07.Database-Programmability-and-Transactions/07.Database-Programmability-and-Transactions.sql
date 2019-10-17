@@ -271,53 +271,165 @@ COMMIT
 USE Diablo
 
 -- Problem 19
---CREATE TRIGGER tr_UsertItemsToUserGames ON UserGameItems FOR UPDATE
---AS
---  IF (EXISTS(
---        SELECT * 
---		FROM inserted AS ins
---		JOIN Items AS it
---		ON ins.ItemId = it.Id
---		JOIN UsersGames AS ug
---		ON ins.UserGameId = ug.Id
---        WHERE it.MinLevel > ug.Level))
---  BEGIN
---    ROLLBACK
---    RETURN
---  END
+CREATE TRIGGER tr_UsertItemsToUserGames ON UserGameItems FOR UPDATE
+AS
+  IF (EXISTS (
+    SELECT * 
+	FROM inserted AS ins
+	JOIN Items AS it
+	ON ins.ItemId = it.Id
+	JOIN UsersGames AS ug
+	ON ins.UserGameId = ug.Id
+    WHERE it.MinLevel > ug.Level))
+  BEGIN
+    ROLLBACK
+    RETURN
+  END
 
---UPDATE ug
---SET ug.Cash += 50000 
---FROM UsersGames AS ug
---JOIN Games AS g
---ON g.Id = ug.GameId
---JOIN Users AS u
---ON u.Id = ug.UserId
---WHERE g.Name = 'Bali' 
---AND u.Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos')
+UPDATE ug
+SET ug.Cash += 50000 
+FROM UsersGames AS ug
+JOIN Games AS g
+ON g.Id = ug.GameId
+JOIN Users AS u
+ON u.Id = ug.UserId
+WHERE g.Name = 'Bali' 
+AND u.Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos')
 
+UPDATE ug
+SET ug.Cash -= i.Price
+FROM UsersGames AS ug
+FULL JOIN Items AS i
+ON ug.GameId IN (
+   SELECT g.Id
+   FROM Games AS g
+   WHERE g.[Name] = 'Bali')
+AND ug.UserId IN (
+   SELECT u.Id
+   FROM Users AS u
+   WHERE u.Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos'))
+WHERE i.Id BETWEEN 251 AND 299
+OR i.Id BETWEEN 501 AND 539
 
---  select * from items
---  select * from usergameitems
---  SELECT * FROM UsersGames
---  select * from games
---  where Games.Name = 'Bali'
---  SELECT * FROM USERS
-
-SELECT u.Username
-FROM Users AS u
-JOIN (
-  SELECT *
+INSERT INTO UserGameItems(ItemId, UserGameId)
+SELECT i.Id, ug.Id
   FROM Items AS i
   FULL JOIN UsersGames AS ug
   ON ug.GameId IN (
-       SELECT g.Id, g.[Name]
-       FROM Games AS g
-       WHERE g.[Name] = 'Bali')
+     SELECT g.Id
+     FROM Games AS g
+     WHERE g.[Name] = 'Bali')
   AND ug.UserId IN (
+     SELECT u.Id
+     FROM Users AS u
+     WHERE u.Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos'))
+  WHERE i.Id BETWEEN 251 AND 299
+  OR i.Id BETWEEN 501 AND 539
+
+SELECT u.Username, 'Bali' AS [Name], ug.Cash, i.[Name] AS [Item Name]
+FROM Users AS u
+FULL JOIN UsersGames AS ug 
+ON u.Id = ug.UserId 
+LEFT JOIN UserGameItems as ugi
+ON ug.Id = ugi.UserGameId
+LEFT JOIN Items as i
+ON ugi.ItemId = i.Id
+WHERE ug.GameId IN (
+  SELECT g.Id
+  FROM Games AS g
+  WHERE g.[Name] = 'Bali')
+ORDER BY u.Username, [Item Name]
+
+-- Problem 20
+CREATE PROC usp_BuyItems(@minLevel INT, @maxLevel INT)
+AS
+BEGIN TRANSACTION
+  DECLARE @totalPrice MONEY
+  SET @totalPrice = (
+    SELECT SUM(i.Price)
+    FROM Items AS i
+    WHERE i.MinLevel BETWEEN @minLevel AND @maxLevel)
+
+  UPDATE ug 
+  SET ug.Cash -= @totalPrice
+  FROM UsersGames AS ug
+  WHERE ug.UserId IN(
+    SELECT u.Id
+    FROM Users AS u
+    WHERE u.Username = 'Stamat')
+  AND ug.GameId IN(
+    SELECT g.Id
+    FROM Games AS g
+    WHERE g.[Name] = 'Safflower')
+
+  IF (EXISTS (
+    SELECT *
+    FROM UsersGames AS ug
+    WHERE ug.UserId IN(
        SELECT u.Id
        FROM Users AS u
-       WHERE u.Username IN ('baleremuda', 'loosenoise', 'inguinalself', 'buildingdeltoid', 'monoxidecos'))
-  WHERE i.Id BETWEEN 251 AND 299
-  OR i.Id BETWEEN 501 AND 539) AS temp
-ON u.Id = temp.UserId
+       WHERE u.Username = 'Stamat')
+  AND ug.GameId IN(
+       SELECT g.Id
+       FROM Games AS g
+       WHERE g.[Name] = 'Safflower')
+	AND ug.Cash < 0))
+  BEGIN
+    ROLLBACK
+    RETURN
+  END
+
+  INSERT INTO UserGameItems 
+  SELECT i.Id, ug.Id
+  FROM Items AS i
+  JOIN UsersGames AS ug
+  ON ug.UserId IN(
+    SELECT u.Id
+    FROM Users AS u
+    WHERE u.Username = 'Stamat')
+  AND ug.GameId IN(
+    SELECT g.Id
+    FROM Games AS g
+    WHERE g.[Name] = 'Safflower')
+  AND i.MinLevel BETWEEN @minLevel AND @maxLevel  
+COMMIT
+
+EXEC dbo.usp_BuyItems 11, 12
+EXEC dbo.usp_BuyItems 19, 21
+
+---------------------------------------------------------------
+
+USE SoftUni
+
+-- Problem 21
+CREATE PROC usp_AssignProject(@emloyeeId INT, @projectID INT) 
+AS
+BEGIN TRANSACTION
+  INSERT INTO EmployeesProjects(EmployeeID, ProjectID)
+  VALUES (@emloyeeId, @projectID)
+  IF (
+    (SELECT COUNT(*) 
+	FROM EmployeesProjects AS ep
+	WHERE ep.EmployeeID = @emloyeeId) > 3)
+    BEGIN
+      ROLLBACK
+      RAISERROR('The employee has too many projects!', 16, 1)
+      RETURN
+END
+COMMIT
+
+-- Problem 22
+CREATE TABLE Deleted_Employees(
+  EmployeeId INT PRIMARY KEY IDENTITY(1,1) NOT NULL, 
+  FirstName VARCHAR(50) NOT NULL, 
+  LastName VARCHAR(50) NOT NULL, 
+  MiddleName VARCHAR(50), 
+  JobTitle VARCHAR(50) NOT NULL, 
+  DepartmentId INT FOREIGN KEY REFERENCES Departments(DepartmentID) NOT NULL, 
+  Salary MONEY NOT NULL)
+
+CREATE TRIGGER tr_EmployeesDelete ON Employees FOR DELETE
+AS
+  INSERT INTO Deleted_Employees(FirstName, LastName, MiddleName, JobTitle, DepartmentId, Salary)
+  SELECT FirstName, LastName, MiddleName, JobTitle, DepartmentId, Salary
+  FROM deleted
