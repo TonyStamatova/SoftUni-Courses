@@ -13,7 +13,7 @@
         {
             using (SoftUniContext db = new SoftUniContext())
             {
-                Console.WriteLine(GetEmployeesInPeriod(db));
+                Console.WriteLine(GetEmployee147(db));
             }
         }
 
@@ -114,6 +114,33 @@
                 .ToList();
 
             return string.Join(Environment.NewLine, employees);
+        }
+
+        public static string GetAddressesByTown(SoftUniContext context)
+        {
+            List<string> result = context.Addresses
+                .OrderByDescending(a => a.Employees.Count)
+                .ThenBy(a => a.Town.Name)
+                .ThenBy(a => a.AddressText)
+                .Select(a => $"{a.AddressText}, {a.Town.Name} - {a.Employees.Count} employees")
+                .Take(10)
+                .ToList();
+
+            return string.Join(Environment.NewLine, result);
+        }
+
+        public static string GetEmployee147(SoftUniContext context)
+        {
+            return context.Employees
+                .Where(e => e.EmployeeId == 147)
+                .Select(e => $"{e.FirstName} {e.LastName} - {e.JobTitle}"
+                + Environment.NewLine
+                + string.Join(
+                    Environment.NewLine, 
+                    e.EmployeesProjects
+                        .Select(ep => ep.Project.Name)
+                        .OrderBy(x => x)))
+                .First();
         }
     }
 }
