@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using P01_HospitalDatabase.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace P01_HospitalDatabase.Data
+﻿namespace P01_HospitalDatabase.Data
 {
+    using P01_HospitalDatabase.Data.Models;
+
+    using Microsoft.EntityFrameworkCore;
+
     public class HospitalDbContext : DbContext
     {
         public DbSet<Patient> Patients { get; set; }
@@ -19,7 +17,6 @@ namespace P01_HospitalDatabase.Data
         public DbSet<Visitation> Visitations { get; set; }
 
         public DbSet<Doctor> Doctors { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

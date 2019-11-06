@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace P01_HospitalDatabase.Migrations
+﻿namespace P01_HospitalDatabase.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Metadata;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class DoctorsWithVisitations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,9 +1,5 @@
 ﻿namespace P01_HospitalDatabase.Data.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     public class PatientMedicament
     {
         public int PatientId { get; set; }

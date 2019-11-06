@@ -1,6 +1,6 @@
-﻿namespace P01_HospitalDatabase
+﻿namespace P03_SalesDatabase
 {
-    using P01_HospitalDatabase.Data;
+    using P03_SalesDatabase.Data;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +8,7 @@
     {
         public static void Main()
         {
-            using (var db = new HospitalDbContext())
+            using (var db = new SalesContext())
             {
                 db.Database.Migrate();
             }
