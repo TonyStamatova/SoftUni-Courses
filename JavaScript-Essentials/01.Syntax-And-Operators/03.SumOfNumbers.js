@@ -1,13 +1,13 @@
-function sum(first, second){
-    let result = 0;
-    let firstNum = Number(first);
-    let secondNum = Number(second);
+function sum(n, m){
+    let sum = 0;
+    let firstNumber = Number(n);
+    let lastNumber = Number(m);
 
-    for (let i = firstNum; i <= secondNum; i++) {
-        result+=i;
+    for (let i = firstNumber; i <= lastNumber; i++) {
+        sum += i;
     }
 
-    return result;
+    console.log(sum);
 }
 
-sum('1', '5' );
+sum('-8', '20');

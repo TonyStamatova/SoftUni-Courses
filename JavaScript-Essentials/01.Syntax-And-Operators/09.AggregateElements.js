@@ -1,18 +1,11 @@
-function calculate(array){
-    let sum = 0;
-    let sumOfInverse = 0;
-    let concatenated = "";
+function aggregate(array){
+    function sum(x) {return x.reduce((a,b) => a + b, 0)};
+    function sumOfInverse(x) {return sum(x.map(x => 1 / x))};
+    function concat(x) {return x.reduce((a,b) => a + b, "")};
 
-    for (let value of array) {
-        let number = Number(value);
-        sum += number;
-        sumOfInverse += (1 / number);
-        concatenated += value;
-    }
-
-    console.log(sum);
-    console.log(sumOfInverse);
-    console.log(concatenated);
+    console.log(sum(array));
+    console.log(sumOfInverse(array));
+    console.log(concat(array));
 }
 
-calculate([1, 2, 3]);
+aggregate([2, 4, 8, 16]);
