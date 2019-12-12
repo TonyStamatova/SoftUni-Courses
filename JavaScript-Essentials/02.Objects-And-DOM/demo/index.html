@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="greeting" onclick="onHelloClick()">Hello worlds!!</h1>
+
+    <ul class="this-one">
+        <li>sdsd</li>
+        <li>sdvsv</li>
+        <li>sdvsdv</li>
+        <li>sdv</li>
+        <li class="alabala">sdvsdv</li>
+    </ul>
+
+    <script>
+        let messageElement = document.getElementById("greeting");
+        messageElement.innerHTML += " Do you see me?"
+        let listElements = document.getElementsByTagName("li");
+        console.log(listElements[2]);
+        let listElement = document.getElementsByClassName("alabala");
+        console.log(listElement);
+        let ulEl = document.querySelector("ul.this-one");
+        ulEl.innerHTML += "<li>WTF</li>";
+        ulEl.style.backgroundColor = "cyan";
+
+        function onHelloClick() {
+            document.write("What happened?!?!");
+        }
+    </script>
+</body>
+
+</html>
